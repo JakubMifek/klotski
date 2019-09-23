@@ -2,4 +2,4 @@
 __pycache__
 puzzles
 output.txt
-results.txt
+results*.txt

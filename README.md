@@ -73,9 +73,9 @@ Results are averaged from 20 runs where all agents had 3 minutes for the search.
 | Steps Needed (#) |   Random   | CIDA* | PQA*  | BIDA* | RBFS  | SMA*  |
 | :--------------: | :--------: | :---: | :---: | :---: | :---: | :---: |
 |     sample01     |     1      |   1   |   1   |   1   |  TBD  |  TBD  |
-|     sample02     |     10     |   5   | **1** | **1** |  TBD  |  TBD  |
-|     sample03     |    215     |  12   | **9** | **9** |  TBD  |  TBD  |
-|     sample04     |     76     |   7   | **1** | **1** |  TBD  |  TBD  |
+|     sample02     |     10     |   1   |   1   |   1   |  TBD  |  TBD  |
+|     sample03     |    215     |   9   |   9   |   9   |  TBD  |  TBD  |
+|     sample04     |     76     |   1   |   1   |   1   |  TBD  |  TBD  |
 |     sample05     |     0      |   0   |   0   |   0   |  TBD  |  TBD  |
 |     sample06     |  **833**   |   0   |   0   |   0   |  TBD  |  TBD  |
 |     sample07     | **251734** |   0   |   0   |   0   |  TBD  |  TBD  |
@@ -83,9 +83,9 @@ Results are averaged from 20 runs where all agents had 3 minutes for the search.
 | States visited (#) | Random | CIDA*  |   PQA*   | BIDA*  | RBFS  | SMA*  |
 | :----------------: | :----: | :----: | :------: | :----: | :---: | :---: |
 |      sample01      | **1**  |   2    |    2     |   2    |  TBD  |  TBD  |
-|      sample02      |   10   |   19   |  **2**   |   10   |  TBD  |  TBD  |
-|      sample03      |  215   |  3302  |  **37**  |  1558  |  TBD  |  TBD  |
-|      sample04      |   76   |  100   |  **2**   |  146   |  TBD  |  TBD  |
+|      sample02      |   10   |   2    |    2     |   9    |  TBD  |  TBD  |
+|      sample03      |  215   |  4092  |  **37**  |  1831  |  TBD  |  TBD  |
+|      sample04      |   76   |   2    |    2     |   19   |  TBD  |  TBD  |
 |      sample05      | 654144 | 24238  |  **12**  | 275416 |  TBD  |  TBD  |
 |      sample06      |  833   | 129481 | **334**  | 145399 |  TBD  |  TBD  |
 |      sample07      | 251734 | 109907 | **1566** | 179654 |  TBD  |  TBD  |
@@ -100,15 +100,15 @@ Results are averaged from 20 runs where all agents had 3 minutes for the search.
 |    sample06     | **0.0** | 180.0 |  180.0  | 180.0 |  TBD  |  TBD  |
 |    sample07     |  108.0  | 180.0 |  180.0  | 180.0 |  TBD  |  TBD  |
 
-| CPU Used (%) |  Random  | CIDA* |   PQA*   | BIDA* | RBFS  | SMA*  |
-| :----------: | :------: | :---: | :------: | :---: | :---: | :---: |
-|   sample01   |   33.0   | 18.0  | **16.0** | 29.0  |  TBD  |  TBD  |
-|   sample02   |   34.0   | 20.0  | **11.0** | 33.0  |  TBD  |  TBD  |
-|   sample03   | **50.0** | 54.0  |   52.0   | 53.0  |  TBD  |  TBD  |
-|   sample04   | **45.0** | 52.0  |   48.0   | 51.0  |  TBD  |  TBD  |
-|   sample05   |   74.0   | 70.0  | **18.0** | 78.0  |  TBD  |  TBD  |
-|   sample06   | **52.0** | 77.0  |   69.0   | 76.0  |  TBD  |  TBD  |
-|   sample07   | **68.0** | 71.0  |   71.0   | 73.0  |  TBD  |  TBD  |
+| CPU Used (%) |  Random  |  CIDA*   |   PQA*   | BIDA* | RBFS  | SMA*  |
+| :----------: | :------: | :------: | :------: | :---: | :---: | :---: |
+|   sample01   |   33.0   |   18.0   | **16.0** | 29.0  |  TBD  |  TBD  |
+|   sample02   |   34.0   |   26.0   | **11.0** | 33.0  |  TBD  |  TBD  |
+|   sample03   | **50.0** |   61.0   |   52.0   | 53.0  |  TBD  |  TBD  |
+|   sample04   |   45.0   | **13.0** |   48.0   | 18.0  |  TBD  |  TBD  |
+|   sample05   |   74.0   |   70.0   | **18.0** | 78.0  |  TBD  |  TBD  |
+|   sample06   | **52.0** |   77.0   |   69.0   | 76.0  |  TBD  |  TBD  |
+|   sample07   | **68.0** |   71.0   |   71.0   | 73.0  |  TBD  |  TBD  |
 
 | Memory Used (%) | Random | CIDA* | PQA*  | BIDA* | RBFS  | SMA*  |
 | :-------------: | :----: | :---: | :---: | :---: | :---: | :---: |

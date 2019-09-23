@@ -15,20 +15,24 @@ agents = 'agents'
 timelimit = 3*60
 total = 20
 
+
 def set_timeout(agent):
     agent.set_timeout()
+
 
 def verify_solution(table, steps):
     for step in steps:
         table.move_block(step['block'], step['position'])
-    
+
     return table.is_solved()
+
 
 def measure_usage(result, agent):
     while not agent.finished:
         result['memory'].append(psutil.virtual_memory()[2])
         result['cpu'].append(psutil.cpu_percent())
         time.sleep(0.05)
+
 
 def run_simulation(agent, puzzle, seed):
     numpy.random.seed(seed)
@@ -51,23 +55,23 @@ def run_simulation(agent, puzzle, seed):
         'cpu': [0],
         'memory': [0]
     }
-    
+
     t = Timer(timelimit, set_timeout, (agent,))
-    t1 = threading.Thread(target=measure_usage, args=(result,agent))
+    t1 = threading.Thread(target=measure_usage, args=(result, agent))
 
     agent.finished = False
     t1.start()
 
     start_time = time.time()
     t.start()
-    try:
-        r = agent.solve(table)    
-    except:
-        print('An error occured')
-        r = {
-            'moves': [],
-            'visited': 0,
-        }
+    # try:
+    r = agent.solve(table)
+    # except:
+    #     print('An error occured')
+    #     r = {
+    #         'moves': [],
+    #         'visited': 0,
+    #     }
     end_time = time.time()
     t.cancel()
 
@@ -76,21 +80,21 @@ def run_simulation(agent, puzzle, seed):
 
     result['steps'] = r['moves']
     result['visited'] = r['visited']
-    
+
     result['time'] = round(end_time - start_time, 2)
     table = KlotskiTable(puzzle_path)
 
     result['success'] = verify_solution(table, result['steps'])
-    
+
     print('{0:27s} --> {1}: {2:12s} result with {3:6d} steps in {4:6.2f}s; {5:6d} visited states.'.format(
         agent_path.split('.')[-1],
         puzzle_path.split('/')[-1],
-        'Successful' if result['success'] else 'Unsuccessful', 
+        'Successful' if result['success'] else 'Unsuccessful',
         len(result['steps']),
         result['time'],
         result['visited']))
-    print('Max CPU: {}%\nMax Memory: {}%'.format(max(result['cpu']),max(result['memory'])))
-    # print(result['steps'])
+    print('Max CPU: {}%\nMax Memory: {}%'.format(
+        max(result['cpu']), max(result['memory'])))
 
     return result
 
@@ -99,7 +103,7 @@ def solve_all_puzzles(agent, seed):
     results = {}
     for puzzle in os.listdir(puzzles):
         results[puzzle] = run_simulation(agent, puzzle, seed)
-    
+
     return results
 
 
@@ -118,5 +122,5 @@ def run_tournament():
 
 
 if __name__ == '__main__':
-    #print(run_tournament())
+    # print(run_tournament())
     run_tournament()

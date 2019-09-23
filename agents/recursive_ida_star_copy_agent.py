@@ -42,15 +42,15 @@ class Agent:
         node = path[len(path) - 1][0]
         self.visited += 1
 
-        f = depth + manhattan_heuristic(node)
-        if f > bound:
-            return f
-
         if node.is_solved():
             return 0
 
         if self.timeout:
             return inf
+
+        f = depth + 1
+        if f > bound:
+            return f
 
         m = inf
         items = []
@@ -60,10 +60,13 @@ class Agent:
                 return inf
 
             block = node.get_block(block)
+            op = block.position
+
             for move in block.available_movements:
                 if self.timeout:
                     return inf
 
+                p = move
                 neighbor = node.copy()
                 neighbor.move_block(block.index, move)
                 s = str(neighbor)
@@ -71,46 +74,45 @@ class Agent:
                 if any([str(table) == s for (table, _) in path]):
                     continue
 
-                items.append((neighbor, {'block': block.index, 'position': move, 'original_position': block.position}, depth + neighbor.heuristic(neighbor)))
+                items.append((neighbor, {'block': block.index, 'position': p,
+                                         'original_position': op}, depth + manhattan_heuristic(neighbor)))
 
-
-        items.sort(key=lambda x: x[2], reverse=True)
-
+        items.sort(key=lambda x: x[2])
+        
         for item in items:
             path.append((item[0], item[1]))
 
-            t=self.search(path, depth + manhattan_distance(item[1]['position'], item[1]['original_position']), bound)
+            t = self.search(path, depth + 1, bound)
             if t == 0:
                 return 0
             if t < m:
-                m=t
+                m = t
 
             path.pop()
 
         return m
 
-
     def solve(self, table):
         if type(table) is not KlotskiTable:
             raise TypeError()
 
-        table.heuristic=manhattan_heuristic
-        self.timeout=False
-        self.visited=0
+        table.heuristic = manhattan_heuristic
+        self.timeout = False
+        self.visited = 0
 
-        bound=manhattan_heuristic(table)
+        bound = 1
 
         while not self.timeout:
-            path=[(table, None)]
-            result=self.search(path, 0, bound)
+            path = [(table, None)]
+            result = self.search(path, 0, bound)
 
             if result == 0:
                 break
 
             if result == inf:
-                return { 'moves': [], 'visited': self.visited }
+                return {'moves': [], 'visited': self.visited}
 
-            bound=result
+            bound += 1
 
-        moves=[move for (_, move) in path if move != None]
-        return { 'moves': moves, 'visited': self.visited }
+        moves = [move for (_, move) in path if move != None]
+        return {'moves': moves, 'visited': self.visited}
