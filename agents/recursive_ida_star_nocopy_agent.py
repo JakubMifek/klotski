@@ -41,18 +41,19 @@ class Agent:
     def search(self, table, path, depth, bound):
         self.visited += 1
 
+        f = depth + manhattan_heuristic(table)
+        if f > bound:
+            return f
+
         if table.is_solved():
             return 0
 
         if self.timeout:
             return inf
 
-        f = depth + 1
-        if f > bound:
-            return f
-
         m = inf
         items = []
+        goalblock = table.goalblock
 
         for block in table.blocks:
             if self.timeout:
@@ -67,9 +68,9 @@ class Agent:
                     return inf
 
                 items.append(({'block': block.index, 'position': move, 'original_position': block.position}, depth + (
-                    manhattan_distance(move, table.desired_position) if block.index == table.desired_position else table.heuristic(table))))
+                    manhattan_distance(move, table.desired_position) if block.index == table.goalposition else table.heuristic(table))))
 
-        items.sort(key=lambda x: x[1])
+        items.sort(key=lambda x: x[1], reverse=True)
 
         for item in items:
             b = item[0]['block']
@@ -79,7 +80,8 @@ class Agent:
             path.append(item[0])
             table.move_block(b, p)
 
-            t = self.search(table, path, depth + 1, bound)
+            t = self.search(table, path, depth +
+                            manhattan_distance(p, op), bound)
             if t == 0:
                 return 0
             if t < m:
@@ -98,7 +100,7 @@ class Agent:
         self.timeout = False
         self.visited = 0
 
-        bound = 1
+        bound = manhattan_heuristic(table)
         path = []
 
         while not self.timeout:
@@ -110,7 +112,7 @@ class Agent:
             if result == inf:
                 return {'moves': [], 'visited': self.visited}
 
-            bound += 1
+            bound = result
 
         moves = [move for move in path if move != None]
         return {'moves': moves, 'visited': self.visited}
