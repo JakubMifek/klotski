@@ -1,5 +1,4 @@
 .vscode
-**/__pycache__
 puzzles
 output.txt
 results*.txt
