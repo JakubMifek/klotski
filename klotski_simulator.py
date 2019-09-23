@@ -1,14 +1,19 @@
 import os
 import importlib
 import copy
-from math import inf
-from time import time as time
+import psutil
+import threading
+import numpy
+import random
+from math import inf, nan
+import time
 from klotski import KlotskiTable
 from threading import Timer
 
 puzzles = 'puzzles'
 agents = 'agents'
-timelimit = 240
+timelimit = 3*60
+total = 20
 
 def set_timeout(agent):
     agent.set_timeout()
@@ -19,11 +24,20 @@ def verify_solution(table, steps):
     
     return table.is_solved()
 
-def run_simulation(agent, puzzle):
+def measure_usage(result, agent):
+    while not agent.finished:
+        result['memory'].append(psutil.virtual_memory()[2])
+        result['cpu'].append(psutil.cpu_percent())
+        time.sleep(0.05)
+
+def run_simulation(agent, puzzle, seed):
+    numpy.random.seed(seed)
+    random.seed(seed)
+
     puzzle_path = '{}/{}'.format(puzzles, puzzle)
     agent_path = '{}.{}'.format(agents, '.'.join(agent.split('.')[:-1]))
 
-    print('Running {} at {}...'.format(agent, puzzle))
+    print('Running {} at {}; using seed: {}'.format(agent, puzzle, seed))
 
     table = KlotskiTable(puzzle_path)
     module = importlib.import_module(agent_path)
@@ -33,16 +47,32 @@ def run_simulation(agent, puzzle):
         'time': 0,
         'steps': [],
         'visited': 0,
-        'success': False
+        'success': False,
+        'cpu': [0],
+        'memory': [0]
     }
     
     t = Timer(timelimit, set_timeout, (agent,))
+    t1 = threading.Thread(target=measure_usage, args=(result,agent))
 
-    start_time = time()
+    agent.finished = False
+    t1.start()
+
+    start_time = time.time()
     t.start()
-    r = agent.solve(table)
-    end_time = time()
+    try:
+        r = agent.solve(table)    
+    except:
+        print('An error occured')
+        r = {
+            'moves': [],
+            'visited': 0,
+        }
+    end_time = time.time()
     t.cancel()
+
+    agent.finished = True
+    t1.join()
 
     result['steps'] = r['moves']
     result['visited'] = r['visited']
@@ -59,23 +89,30 @@ def run_simulation(agent, puzzle):
         len(result['steps']),
         result['time'],
         result['visited']))
+    print('Max CPU: {}%\nMax Memory: {}%'.format(max(result['cpu']),max(result['memory'])))
+    # print(result['steps'])
 
     return result
 
 
-def solve_all_puzzles(agent):
+def solve_all_puzzles(agent, seed):
     results = {}
     for puzzle in os.listdir(puzzles):
-        results[puzzle] = run_simulation(agent, puzzle)
+        results[puzzle] = run_simulation(agent, puzzle, seed)
     
     return results
 
 
 def run_tournament():
     results = {}
-    for agent in os.listdir(agents):
-        if agent != '__init__.py' and agent != '__pycache__':
-            results[agent] = solve_all_puzzles(agent)
+    for i in range(total):
+        print('______________________')
+        print('______ ROUND {:2d} ______'.format(i+1))
+        print('______________________')
+        seed = random.randint(0, 1000000)
+        for agent in os.listdir(agents):
+            if agent != '__init__.py' and agent != '__pycache__':
+                results[agent] = solve_all_puzzles(agent, seed)
 
     return results
 

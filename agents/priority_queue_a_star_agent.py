@@ -21,7 +21,6 @@ class Agent:
     def set_timeout(self):
         self.timeout = True
 
-
     def get_move(self, table):
         moves = self.solve(table)
         if len(moves) == 0:

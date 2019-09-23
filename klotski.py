@@ -4,19 +4,19 @@ from math import inf, nan, isnan
 from event import Event
 
 def manhattan_distance(position1, position2):
-    return numpy.sum(map(abs, numpy.subtract(position1, position2)))
+    return numpy.sum(list(map(abs, numpy.subtract(position1, position2))))
 
 
 def closest_heuristic(table):
-    return manhattan_distance(table.desired_position, table.goalblock.position)
+    return manhattan_distance(table.desired_position, table.get_block(table.goalblock).position)
 
 
 def most_extreme_position(positions):
     extreme = (inf, inf)
     for position in positions:
-        if position[0] < extreme[0]:
+        if position[1] < extreme[1]:
             extreme = position
-        elif position[0] == extreme[0] and position[1] < extreme[1]:
+        elif position[1] == extreme[1] and position[0] < extreme[0]:
             extreme = position
     
     return extreme

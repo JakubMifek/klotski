@@ -5,11 +5,6 @@ from math import inf
 from enum import Enum
 
 
-class Result(Enum):
-    FOUND = 0,
-    NOT_FOUND = inf
-
-
 def manhattan_distance(position1, position2):
     return numpy.sum(list(map(abs, numpy.subtract(position1, position2))))
 
@@ -76,7 +71,7 @@ class Agent:
                 if any([str(table) == s for (table, _) in path]):
                     continue
 
-                items.append((neighbor, {'block': block.index, 'position': move}, depth + manhattan_distance(block.position, move)))
+                items.append((neighbor, {'block': block.index, 'position': move, 'original_position': block.position}, depth + neighbor.heuristic(neighbor)))
 
 
         items.sort(key=lambda x: x[2], reverse=True)
@@ -84,7 +79,7 @@ class Agent:
         for item in items:
             path.append((item[0], item[1]))
 
-            t=self.search(path, item[2], bound)
+            t=self.search(path, depth + manhattan_distance(item[1]['position'], item[1]['original_position']), bound)
             if t == 0:
                 return 0
             if t < m:
