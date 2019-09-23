@@ -58,20 +58,66 @@ TBD
 TBD
 
 ### Comparison
-|  States visited  | PQA* | CIDA* | BIDA* | RBFS | SMA* |
-| :--------------: | :--: | :---: | :---: | :--: | :--: |
-|     sample01     |      |       |       |      |      |
-|     sample02     |      |       |       |      |      |
-|     sample03     |      |       |       |      |      |
-|     sample04     |      |       |       |      |      |
-|     sample05     |      |       |       |      |      |
-|     sample06     |      |       |       |      |      |
+Results are averaged from 20 runs where all agents had 3 minutes for the search.
 
-|  Time needed  | PQA* | CIDA* | BIDA* | RBFS | SMA* |
-| :-----------: | :--: | :---: | :---: | :--: | :--: |
-|    sample01   |      |       |       |      |      |
-|    sample02   |      |       |       |      |      |
-|    sample03   |      |       |       |      |      |
-|    sample04   |      |       |       |      |      |
-|    sample05   |      |       |       |      |      |
-|    sample06   |      |       |       |      |      |
+| Success Rate (%) |  Random   | CIDA* | PQA*  | BIDA* | RBFS  | SMA*  |
+| :--------------: | :-------: | :---: | :---: | :---: | :---: | :---: |
+|     sample01     |   100.0   | 100.0 | 100.0 | 100.0 |  TBD  |  TBD  |
+|     sample02     |   100.0   | 100.0 | 100.0 | 100.0 |  TBD  |  TBD  |
+|     sample03     |   100.0   | 100.0 | 100.0 | 100.0 |  TBD  |  TBD  |
+|     sample04     |   100.0   | 100.0 | 100.0 | 100.0 |  TBD  |  TBD  |
+|     sample05     |    0.0    |  0.0  |  0.0  |  0.0  |  TBD  |  TBD  |
+|     sample06     | **100.0** |  0.0  |  0.0  |  0.0  |  TBD  |  TBD  |
+|     sample07     | **75.0**  |  0.0  |  0.0  |  0.0  |  TBD  |  TBD  |
+
+| Steps Needed (#) |   Random   | CIDA* | PQA*  | BIDA* | RBFS  | SMA*  |
+| :--------------: | :--------: | :---: | :---: | :---: | :---: | :---: |
+|     sample01     |     1      |   1   |   1   |   1   |  TBD  |  TBD  |
+|     sample02     |     10     |   5   | **1** | **1** |  TBD  |  TBD  |
+|     sample03     |    215     |  12   | **9** | **9** |  TBD  |  TBD  |
+|     sample04     |     76     |   7   | **1** | **1** |  TBD  |  TBD  |
+|     sample05     |     0      |   0   |   0   |   0   |  TBD  |  TBD  |
+|     sample06     |  **833**   |   0   |   0   |   0   |  TBD  |  TBD  |
+|     sample07     | **251734** |   0   |   0   |   0   |  TBD  |  TBD  |
+
+| States visited (#) | Random | CIDA*  |   PQA*   | BIDA*  | RBFS  | SMA*  |
+| :----------------: | :----: | :----: | :------: | :----: | :---: | :---: |
+|      sample01      | **1**  |   2    |    2     |   2    |  TBD  |  TBD  |
+|      sample02      |   10   |   19   |  **2**   |   10   |  TBD  |  TBD  |
+|      sample03      |  215   |  3302  |  **37**  |  1558  |  TBD  |  TBD  |
+|      sample04      |   76   |  100   |  **2**   |  146   |  TBD  |  TBD  |
+|      sample05      | 654144 | 24238  |  **12**  | 275416 |  TBD  |  TBD  |
+|      sample06      |  833   | 129481 | **334**  | 145399 |  TBD  |  TBD  |
+|      sample07      | 251734 | 109907 | **1566** | 179654 |  TBD  |  TBD  |
+
+| Time needed (s) | Random  | CIDA* |  PQA*   | BIDA* | RBFS  | SMA*  |
+| :-------------: | :-----: | :---: | :-----: | :---: | :---: | :---: |
+|    sample01     |   0.0   |  0.0  |   0.0   |  0.0  |  TBD  |  TBD  |
+|    sample02     |   0.0   |  0.0  |   0.0   |  0.0  |  TBD  |  TBD  |
+|    sample03     |   0.0   |  4.0  |   0.0   |  1.0  |  TBD  |  TBD  |
+|    sample04     |   0.0   |  0.0  |   0.0   |  0.0  |  TBD  |  TBD  |
+|    sample05     |  180.0  | 60.0  | **0.0** | 180.0 |  TBD  |  TBD  |
+|    sample06     | **0.0** | 180.0 |  180.0  | 180.0 |  TBD  |  TBD  |
+|    sample07     |  108.0  | 180.0 |  180.0  | 180.0 |  TBD  |  TBD  |
+
+| CPU Used (%) |  Random  | CIDA* |   PQA*   | BIDA* | RBFS  | SMA*  |
+| :----------: | :------: | :---: | :------: | :---: | :---: | :---: |
+|   sample01   |   33.0   | 18.0  | **16.0** | 29.0  |  TBD  |  TBD  |
+|   sample02   |   34.0   | 20.0  | **11.0** | 33.0  |  TBD  |  TBD  |
+|   sample03   | **50.0** | 54.0  |   52.0   | 53.0  |  TBD  |  TBD  |
+|   sample04   | **45.0** | 52.0  |   48.0   | 51.0  |  TBD  |  TBD  |
+|   sample05   |   74.0   | 70.0  | **18.0** | 78.0  |  TBD  |  TBD  |
+|   sample06   | **52.0** | 77.0  |   69.0   | 76.0  |  TBD  |  TBD  |
+|   sample07   | **68.0** | 71.0  |   71.0   | 73.0  |  TBD  |  TBD  |
+
+| Memory Used (%) | Random | CIDA* | PQA*  | BIDA* | RBFS  | SMA*  |
+| :-------------: | :----: | :---: | :---: | :---: | :---: | :---: |
+|    sample01     |  30.0  | 29.0  | 29.0  | 29.0  |  TBD  |  TBD  |
+|    sample02     |  36.0  | 29.0  | 29.0  | 29.0  |  TBD  |  TBD  |
+|    sample03     |  30.0  | 29.0  | 29.0  | 29.0  |  TBD  |  TBD  |
+|    sample04     |  36.0  | 29.0  | 29.0  | 29.0  |  TBD  |  TBD  |
+|    sample05     |  36.0  | 29.0  | 29.0  | 29.0  |  TBD  |  TBD  |
+|    sample06     |  36.0  | 29.0  | 29.0  | 29.0  |  TBD  |  TBD  |
+|    sample07     |  30.0  | 29.0  | 29.0  | 29.0  |  TBD  |  TBD  |
+
+> INFO: Memory is only orientational due to caching and garbage collector
