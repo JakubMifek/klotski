@@ -12,11 +12,14 @@ Klotski file format is defined as follows:
    - final line contains a single symbol which determines which block is the one that is supposed to be placed to goal space
 
 ## Structure
-### Event
+### Klotski
+Files `klotski.py` and `event.py` contain data structures used dedicated for evaluation and manipulation with klotski tables.
+
+#### Event
  - This class I found while researching event system in python
  - Original poster is [longpoke](https://stackoverflow.com/users/80243/l%cc%b2%cc%b3o%cc%b2%cc%b3%cc%b3n%cc%b2%cc%b3%cc%b3g%cc%b2%cc%b3%cc%b3p%cc%b2%cc%b3o%cc%b2%cc%b3%cc%b3k%cc%b2%cc%b3%cc%b3e%cc%b2%cc%b3%cc%b3)
  - It extends list with event handler capabilities
-### KlotskiBlock
+#### KlotskiBlock
  - Contained in `klotski.py`
  - Contains methods for block's manipulation such as:
    - `by_one_movements(self)` (movements by one square)
@@ -24,7 +27,7 @@ Klotski file format is defined as follows:
  - Is represented by unique index
  - Contains several properties among which are `table` (KlotskiTable), `shape` (set of positions determining the shape of the block) and `available_movements` (set of positions where can be the block placed to)
 
-### KlotskiTable
+#### KlotskiTable
  - Contained in `klotski.py`
  - Represents table of klotski blocks
  - Loads from a *klotski* file
@@ -36,7 +39,10 @@ Klotski file format is defined as follows:
  - Contains two event handlers - `on_solved` and `on_block_moved`
 
 ### KlotskiSimulator
-TBD
+The file `klotski_simulator.py` loads puzzles from `puzzles/` folder in the root of the project and executes several runs of each agent on it. Each agent has only specified amount of time to finish each puzzle. Results of simulated race are printed to the console.
+
+If redirected to a file, `process_results.py` can aggregate the information into more readable results.
+
 #### Klotski Simulator's AI format
 TBD
 
@@ -59,6 +65,23 @@ TBD
 
 ### Comparison
 Results are averaged from 20 runs where all agents had 3 minutes for the search.
+
+#### Hardware
+
+***Operating system***
+Manjaro Linux
+
+***CPU***
+Intel(R) Celeron(R) CPU B840 @ 1.90GHz
+1 physical processor; 2 cores; 2 threads
+
+***RAM***
+3967192 KiB
+
+***Motherboard***
+A0001C02 / 161D (Hewlett-Packard)
+
+#### Results
 
 | Success Rate (%) |  Random   | CIDA* | PQA*  | BIDA* | RBFS  | SMA*  |
 | :--------------: | :-------: | :---: | :---: | :---: | :---: | :---: |
